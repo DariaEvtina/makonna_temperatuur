@@ -21,11 +21,11 @@ if(isSet($_REQUEST["kustutusid"])){
     kustutaTemperatuur($_REQUEST["kustutusid"]);
 }
 if(isSet($_REQUEST["muutmine"])){
-    muudaTemperatuur($_REQUEST["muudetudid"], $_REQUEST["maakonnanimi"],$_REQUEST["maakonna_id"], $_REQUEST["temperatuur"], $_REQUEST["kupyaev_aeg"]);
+    muudaTemperatuur($_REQUEST["muudetudid"],$_REQUEST["maakonna_id"], $_REQUEST["temperatuur"], $_REQUEST["kupyaev_aeg"]);
 }
 $sorttulp="temperatuur";
 $otsisona="";
-
+//$yhendus=new mysqli('d105612.mysql.zonevs.eu','d105612_evtina','ParoolSQLkasutaja','d105612_admebaas');
 if(isSet($_REQUEST["sort"])){
     $sorttulp=$_REQUEST["sort"];
 }

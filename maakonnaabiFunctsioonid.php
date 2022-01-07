@@ -79,10 +79,10 @@ function kustutaTemperatuur($temperatuur_id){
     $kask->execute();
 }
 //muudab andmed tabelis
-function muudaTemperatuur($temperatuur_id, $maakonnanimi, $maakonna_id, $temperatuur, $kuupyaev_kellaaeg)
+function muudaTemperatuur($temperatuur_id, $maakonna_id, $temperatuur, $kuupyaev_kellaaeg)
 {
     global $yhendus;
-    $kask = $yhendus->prepare("UPDATE ilmatemperatuur SET maakonnanimi=?, maakonna_id=?, temperatuur=?, kuupyaev_kellaaeg=? WHERE id=?");
-    $kask->bind_param("sisi", $maakonnanimi, $maakonna_id, $temperatuur, $kuupyaev_kellaaeg, $temperatuur_id);
+    $kask = $yhendus->prepare("UPDATE ilmatemperatuur SET maakonna_id=?, temperatuur=?, kuupyaev_kellaaeg=? WHERE id=?");
+    $kask->bind_param("iisi",  $maakonna_id, $temperatuur, $kuupyaev_kellaaeg, $temperatuur_id);
     $kask->execute();
 }
