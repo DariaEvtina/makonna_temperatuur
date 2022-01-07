@@ -1,9 +1,12 @@
 <?php
 require("maakonnaabiFunctsioonid.php");
+
 if(isSet($_REQUEST["makonnalisamine"])){
-    lisaMakkona($_REQUEST["uuemaakonnainimi"]);
-    header("Location: haldusMT.php");
-    exit();
+    if(!empty(trim($_REQUEST["uuemaakonnainimi"]))) {
+        lisaMakkona($_REQUEST["uuemaakonnainimi"]);
+        header("Location: haldusMT.php");
+        exit();
+    }
 }
 if(isSet($_REQUEST["temperatuurlisamine"])){
     //empty=pusto
@@ -18,9 +21,18 @@ if(isSet($_REQUEST["kustutusid"])){
     kustutaTemperatuur($_REQUEST["kustutusid"]);
 }
 if(isSet($_REQUEST["muutmine"])){
-    muudaTemperatuur($_REQUEST["muudetudid"], $_REQUEST["maakonnanimi"],$_REQUEST["maakonna_id"], $_REQUEST["temperatuur"]);
+    muudaTemperatuur($_REQUEST["muudetudid"], $_REQUEST["maakonnanimi"],$_REQUEST["maakonna_id"], $_REQUEST["temperatuur"], $_REQUEST["kupyaev_aeg"]);
 }
-$MTid=kysiTemperatuurAndmed();
+$sorttulp="temperatuur";
+$otsisona="";
+
+if(isSet($_REQUEST["sort"])){
+    $sorttulp=$_REQUEST["sort"];
+}
+if(isSet($_REQUEST["otsisona"])){
+    $otsisona=$_REQUEST["otsisona"];
+}
+$MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -37,15 +49,15 @@ $MTid=kysiTemperatuurAndmed();
     <div class="column">
         <h2>Temperatuuri lisamine</h2>
         <dl>
-            <dt>temperatuur:</dt>
+            <dt>temperatuur</dt>
             <dd><input type="text" name="temperatuur" /></dd>
-            <dt>maakonnanimi:</dt>
+            <dt>maakonnanimi</dt>
             <dd><?php
                 echo looRippMenyy("SELECT id, maakonnanimi FROM maakondad",
                     "maakonna_id");
                 ?>
             </dd>
-            <dt>aeg:</dt>
+            <dt>aeg</dt>
             <dd><input type="datetime-local" name="aeg" /></dd>
         </dl>
         <input type="submit" name="temperatuurlisamine" value="Lisa temperatuur" />
@@ -58,12 +70,10 @@ $MTid=kysiTemperatuurAndmed();
 <div class="column">
     <form action="haldusMT.php">
         <h2>Ilm loetelu</h2>
+        Otsi: <input type="text" name="otsisona" />
         <table>
             <tr>
                 <th>Haldus</th>
-                <!--<th>Kupäev/Kellaaeg</th>
-                <th>Maakonnanimi</th>
-                <th>Temperatuur</th>-->
                 <th><a href="haldusMT.php?sort=kuupyaev_kellaaeg">Kupäev/Kellaaeg</a></th>
                 <th><a href="haldusMT.php?sort=maakonnanimi">Maakonnanimi</a></th>
                 <th><a href="haldusMT.php?sort=temperatuur">Temperatuur</a></th>

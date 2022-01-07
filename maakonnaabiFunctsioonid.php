@@ -10,9 +10,9 @@ $yhendus=new mysqli('localhost','dariaevtina','12345parool','dariaevtina');
 
 
 //$otsisona - otsingularity
-function kysiTemperatuurAndmed($sorttulp="makonnanimi", $otsisona=""){
+function kysiTemperatuurAndmed($sorttulp="kuupyaev_kellaaeg", $otsisona=""){
     global $yhendus;
-    $lubatudtulbad=array("makonnanimi", "kuupyaev_kellaaeg", "temperatuur");
+    $lubatudtulbad=array("kuupyaev_kellaaeg", "maakonnanimi", "temperatuur");
     if(!in_array($sorttulp, $lubatudtulbad)){
         return "lubamatu tulp";
     }
@@ -20,7 +20,9 @@ function kysiTemperatuurAndmed($sorttulp="makonnanimi", $otsisona=""){
     $otsisona=addslashes(stripslashes($otsisona));
     $kask=$yhendus->prepare("SELECT ilmatemperatuur.id, temperatuur, maakonnanimi, kuupyaev_kellaaeg
     FROM ilmatemperatuur, maakondad
-    WHERE ilmatemperatuur.maakonna_id=maakondad.id");
+    WHERE ilmatemperatuur.maakonna_id=maakondad.id
+    AND (temperatuur LIKE '%$otsisona%' OR kuupyaev_kellaaeg LIKE '%$otsisona%' OR maakonnanimi LIKE '%$otsisona%')
+       ORDER BY $sorttulp");
     //echo $yhendus->error;
     $kask->bind_result($id, $temperatuur, $maakonnanimi, $kuupyaev_kellaaeg);
     $kask->execute();
@@ -77,10 +79,10 @@ function kustutaTemperatuur($temperatuur_id){
     $kask->execute();
 }
 //muudab andmed tabelis
-function muudaTemperatuur($temperatuur_id, $maakonnanimi, $maakonna_id, $temperatuur)
+function muudaTemperatuur($maakonnanimi, $maakonna_id, $temperatuur, $temperatuur_id, $kuupyaev_kellaaeg)
 {
     global $yhendus;
-    $kask = $yhendus->prepare("UPDATE ilmatemperatuur SET maakonnanimi=?, maakonna_id=?, temperatuur=? WHERE id=?");
-    $kask->bind_param("siii", $maakonnanimi, $maakonna_id, $temperatuur, $temperatuur_id);
+    $kask = $yhendus->prepare("UPDATE ilmatemperatuur SET maakonnanimi=?, maakonna_id=?, temperatuur=?, kuupyaev_kellaaeg=? WHERE id=?");
+    $kask->bind_param("siisi", $maakonnanimi, $maakonna_id, $temperatuur, $kuupyaev_kellaaeg, $temperatuur_id);
     $kask->execute();
 }

@@ -53,3 +53,27 @@ th, td {
 }
 tr:hover {background-color: lightblue;}
 tr:nth-child(even) {background-color: #f2f2f2;}
+dt {
+    font-weight: bold;
+    color: black;
+}
+
+dt::after {
+    content: ":";
+}
+.input[type=button], input[type=submit], input[type=reset] {
+    background: #b7c3ce;
+    color:#fff;
+    border:1pxsolid#eee;
+    border-radius:20px;
+    box-shadow:5px5px5px#eee;
+    text-shadow:none;
+}
+.input[type=button], input[type=submit], input[type=reset] {
+    background: #768c9b;
+    color:#fff;
+    border:1pxsolid#eee;
+    border-radius:20px;
+    box-shadow:5px5px5px#eee;
+    text-shadow:none;
+}
