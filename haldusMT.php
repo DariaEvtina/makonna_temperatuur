@@ -11,8 +11,8 @@ if(isSet($_REQUEST["makonnalisamine"])){
 if(isSet($_REQUEST["temperatuurlisamine"])){
     //empty=pusto
     //trim = delaet tak chto esli plohoi chelovek vedet probel vmesto nazvaniia, ona ne vodila eto v tablitsu
-    if(!empty(trim($_REQUEST["aeg"])) && !empty(trim($_REQUEST["temperatuur"]))){
-        lisaTemperatuur($_REQUEST["maakonna_id"], $_REQUEST["aeg"], $_REQUEST["temperatuur"]);
+    if(!empty(trim($_REQUEST["aeg"])) && !empty(trim($_REQUEST["Lissatemperatuur"]))){
+        lisaTemperatuur($_REQUEST["maakonna_id"], $_REQUEST["aeg"], $_REQUEST["Lissatemperatuur"]);
         header("Location: haldusMT.php");
         exit();
     }
@@ -50,7 +50,7 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
         <h2>Temperatuuri lisamine</h2>
         <dl>
             <dt>temperatuur</dt>
-            <dd><input type="text" name="temperatuur" /></dd>
+            <dd><input type="text" name="Lissatemperatuur" /></dd>
             <dt>maakonnanimi</dt>
             <dd><?php
                 echo looRippMenyy("SELECT id, maakonnanimi FROM maakondad",
