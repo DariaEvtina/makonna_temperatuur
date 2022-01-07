@@ -7,8 +7,6 @@
 <?php
 //lisamine
 $yhendus=new mysqli('localhost','dariaevtina','12345parool','dariaevtina');
-
-
 //$otsisona - otsingularity
 function kysiTemperatuurAndmed($sorttulp="kuupyaev_kellaaeg", $otsisona=""){
     global $yhendus;
@@ -57,10 +55,10 @@ function looRippMenyy($sqllause, $valikunimi, $valitudid=""){
 
 
 //lisab uuekaubagrupi
-function lisaMakkona($maakonnanimi){
+function lisaMakkona($maakonnanimi,$maakonnakeskus){
     global $yhendus;
-    $kask=$yhendus->prepare("INSERT INTO maakondad (maakonnanimi) VALUES (?)");
-    $kask->bind_param("s", $maakonnanimi);
+    $kask=$yhendus->prepare("INSERT INTO maakondad (maakonnanimi,maakonnakeskus) VALUES (?,?)");
+    $kask->bind_param("ss", $maakonnanimi,$maakonnakeskus);
     $kask->execute();
 }
 

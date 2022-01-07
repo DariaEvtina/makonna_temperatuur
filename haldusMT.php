@@ -2,15 +2,13 @@
 require("maakonnaabiFunctsioonid.php");
 
 if(isSet($_REQUEST["makonnalisamine"])){
-    if(!empty(trim($_REQUEST["uuemaakonnainimi"]))) {
-        lisaMakkona($_REQUEST["uuemaakonnainimi"]);
+    if(!empty(trim($_REQUEST["uuemaakonnainimi"])) && !empty(trim($_REQUEST["uuemaakonnakeskus"]))) {
+        lisaMakkona($_REQUEST["uuemaakonnainimi"],$_REQUEST["uuemaakonnakeskus"]);
         header("Location: haldusMT.php");
         exit();
     }
 }
 if(isSet($_REQUEST["temperatuurlisamine"])){
-    //empty=pusto
-    //trim = delaet tak chto esli plohoi chelovek vedet probel vmesto nazvaniia, ona ne vodila eto v tablitsu
     if(!empty(trim($_REQUEST["aeg"])) && !empty(trim($_REQUEST["Lissatemperatuur"]))){
         lisaTemperatuur($_REQUEST["maakonna_id"], $_REQUEST["aeg"], $_REQUEST["Lissatemperatuur"]);
         header("Location: haldusMT.php");
@@ -25,7 +23,7 @@ if(isSet($_REQUEST["muutmine"])){
 }
 $sorttulp="temperatuur";
 $otsisona="";
-//$yhendus=new mysqli('d105612.mysql.zonevs.eu','d105612_evtina','ParoolSQLkasutaja','d105612_admebaas');
+
 if(isSet($_REQUEST["sort"])){
     $sorttulp=$_REQUEST["sort"];
 }
@@ -50,7 +48,7 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
         <h2>Temperatuuri lisamine</h2>
         <dl>
             <dt>temperatuur</dt>
-            <dd><input type="text" name="Lissatemperatuur" /></dd>
+            <dd><input type="number" name="Lissatemperatuur" max="30" min="-26"/></dd>
             <dt>maakonnanimi</dt>
             <dd><?php
                 echo looRippMenyy("SELECT id, maakonnanimi FROM maakondad",
@@ -64,8 +62,14 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
     </div>
     <div class="column">
         <h2>Makonnanimi lisamine</h2>
-        <input type="text" name="uuemaakonnainimi" />
-        <input type="submit" name="makonnalisamine" value="Lisa makonnanimi" />
+        <dl>
+            <dt>Maakonnanimi</dt>
+            <dd><input type="text" name="uuemaakonnainimi" /></dd>
+            <dt>Maakonnakeskus</dt>
+            <dd><input type="text" name="uuemaakonnakeskus"/></dd>
+            <input type="submit" name="makonnalisamine" value="Lisa makonnanimi" />
+        </dl>
+    </div>
 </form>
 <div class="column">
     <form action="haldusMT.php">
@@ -87,13 +91,14 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
                             <input type="submit" name="katkestus" value="Katkesta" />
                             <input type="hidden" name="muudetudid" value="<?=$MT->id ?>" />
                         </td>
-                        <td><input type="text" name="maakonnanimi" value="<?=$MT->maakonnanimi ?>" /></td>
+                        <!--<td><input type="text" name="maakonnanimi" value="<?=$MT->maakonnanimi ?>" /></td>-->
+
                         <td><?php
                             echo looRippMenyy("SELECT id, maakonnanimi FROM maakondad",
                                 "maakonna_id", $MT->id);
                             ?></td>
                         <td><input type="text" name="kupyaev_aeg" value="<?=$MT->kuupyaev_kellaaeg ?>" /></td>
-                        <td><input type="text" name="temperatuur" value="<?=$MT->temperatuur ?>" /></td>
+                        <td><input type="number" name="temperatuur" max="30" min="-26" value="<?=$MT->temperatuur ?>" /></td>
                     <?php else: ?>
                         <td><a href="haldusMT.php?kustutusid=<?=$MT->id ?>"
                                onclick="return confirm('Kas ikka soovid kustutada?')">x</a>
@@ -106,8 +111,8 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
                 </tr>
             <?php endforeach; ?>
         </table>
-        </div>
-    </form>
+</div>
+</form>
 
 </body>
 </html>
