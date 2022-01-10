@@ -10,7 +10,7 @@ $yhendus=new mysqli('localhost','dariaevtina','12345parool','dariaevtina');
 );*/
 session_start();
 //uue kasutaja lissamine admetabeli sisse
-$error=$_SESSION["error"];
+
 function puhastaAndmed($data): string
 {
     //trim()- eemaldab tühikud
@@ -48,6 +48,7 @@ if(isset($_REQUEST["knimi"])&& isset($_REQUEST["pasw"])) {
     $yhendus->close();
     exit();
 }
+$error=$_SESSION["error"];
 ?>
 <!DOCTYPE html>
 <html lang="et">
