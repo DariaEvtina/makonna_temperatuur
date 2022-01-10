@@ -1,6 +1,10 @@
 <?php
 require("maakonnaabiFunctsioonid.php");
-
+session_start();
+/*if(isset($_SESSION['tutvustamine'])){
+    header("Location: registr.php");
+    exit();
+}*/
 if(isSet($_REQUEST["makonnalisamine"])){
     if(!empty(trim($_REQUEST["uuemaakonnainimi"])) && !empty(trim($_REQUEST["uuemaakonnakeskus"]))) {
         lisaMakkona($_REQUEST["uuemaakonnainimi"],$_REQUEST["uuemaakonnakeskus"]);
@@ -35,11 +39,28 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
 <!DOCTYPE html>
 <html lang="et">
 <head>
-    <title>Kaupade leht</title>
+    <title>Ilm leht</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 </head>
 <body>
+<div id="menuArea">
+    <a href="registr.php">Loo uus kasutaja</a>
+    <?php
+    if(isset($_SESSION['unimi'])){
+        ?>
+        <h1>Tere, <?="$_SESSION[unimi]"?></h1>
+        <a href="logout.php">Logi välja</a>
+        <?php
+    } else {
+        ?>
+        <a href="loginAB.php">Logi sisse</a>
+        <?php
+    }
+    ?>
+</div>
+<?php
+if (isset($_SESSION['unimi'])){?>
 <div class="header">
     <h1>Halduse leht</h1>
 </div>
@@ -113,6 +134,6 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
         </table>
 </div>
 </form>
-
 </body>
+<?php }?>
 </html>
