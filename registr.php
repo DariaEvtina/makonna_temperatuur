@@ -48,7 +48,7 @@ if(isset($_REQUEST["knimi"])&& isset($_REQUEST["pasw"])) {
     $yhendus->close();
     exit();
 }
-$error=$_SESSION["error"];
+$error=$_SESSION["error"] ?? "";
 ?>
 <!DOCTYPE html>
 <html lang="et">

@@ -59,8 +59,6 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
     }
     ?>
 </div>
-<?php
-if (isset($_SESSION['unimi'])){?>
 <div class="header">
     <h1>Halduse leht</h1>
 </div>
@@ -98,7 +96,9 @@ if (isset($_SESSION['unimi'])){?>
         Otsi: <input type="text" name="otsisona" />
         <table>
             <tr>
+                <?php if (isset($_SESSION['unimi'])){?>
                 <th>Haldus</th>
+                <?php }?>
                 <th><a href="haldusMT.php?sort=kuupyaev_kellaaeg">Kupäev/Kellaaeg</a></th>
                 <th><a href="haldusMT.php?sort=maakonnanimi">Maakonnanimi</a></th>
                 <th><a href="haldusMT.php?sort=temperatuur">Temperatuur</a></th>
@@ -112,7 +112,8 @@ if (isset($_SESSION['unimi'])){?>
                             <input type="submit" name="katkestus" value="Katkesta" />
                             <input type="hidden" name="muudetudid" value="<?=$MT->id ?>" />
                         </td>
-                        <!--<td><input type="text" name="maakonnanimi" value="<?=$MT->maakonnanimi ?>" /></td>-->
+
+                        <!--<td><input type="text" name="maakonnanimi" value=" /></td>-->
 
                         <td><?php
                             echo looRippMenyy("SELECT id, maakonnanimi FROM maakondad",
@@ -121,10 +122,14 @@ if (isset($_SESSION['unimi'])){?>
                         <td><input type="text" name="kupyaev_aeg" value="<?=$MT->kuupyaev_kellaaeg ?>" /></td>
                         <td><input type="number" name="temperatuur" max="30" min="-26" value="<?=$MT->temperatuur ?>" /></td>
                     <?php else: ?>
+                        <?php
+                        if (isset($_SESSION['unimi'])){?>
                         <td><a href="haldusMT.php?kustutusid=<?=$MT->id ?>"
                                onclick="return confirm('Kas ikka soovid kustutada?')">x</a>
                             <a href="haldusMT.php?muutmisid=<?=$MT->id ?>">m</a>
                         </td>
+                    <?php }?>
+
                         <td><?=$MT->kuupyaev_kellaaeg?></td>
                         <td><?=$MT->maakonnanimi ?></td>
                         <td><?=$MT->temperatuur ?></td>
@@ -135,5 +140,4 @@ if (isset($_SESSION['unimi'])){?>
 </div>
 </form>
 </body>
-<?php }?>
 </html>
