@@ -44,7 +44,7 @@ if(isset($_REQUEST["knimi"])&& isset($_REQUEST["pasw"])) {
     $kask->execute();
     $_SESSION['unimi']=$LOGIN;
     $_SESSION['admin']=true;
-//header("Location: haldusMT.php ");
+//header("Location: haldusMT.php ");<button onclick="document.getElementById('id02').style.display='block'">ava</button>
     $yhendus->close();
     exit();
 }
@@ -58,12 +58,15 @@ $error=$_SESSION["error"] ?? "";
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 </head>
 <body>
-<button onclick="document.getElementById('id02').style.display='block'">ava</button>
-<div id="id02" class="modal">
+
+<div id="id02" class="modal-content animate">
 <div class="modal-header">
     <h1>Uue kasutamine registreerimine</h1>
 </div>
-<form action="registr.php" class="modal-content">
+    <div class="imgcontainer">
+        <img src="img/icon.png" alt="Avatar" class="avatar">
+    </div>
+<form action="registr.php" >
     <div class="container">
         <table>
             <tr>

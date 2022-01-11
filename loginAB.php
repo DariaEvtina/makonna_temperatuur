@@ -38,10 +38,12 @@ if(isset($_REQUEST['knimi']) && isset($_REQUEST['pasw'])){
     <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-<button onclick="document.getElementById('id01').style.display='block'">ava</button>
-<div id="id01" class="modal">
+<div id="id01" class="modal-content animate">
     <span onclick="window.location.href='haldusMT.php'" class="close" title="logi vorm">×</span>
     <h1 class="modal-header">Login vorm</h1>
+    <div class="imgcontainer">
+        <img src="img/iconLogin.png" alt="Avatar" class="avatar">
+    </div>
     <form action="loginAB.php" class="modal-content">
         <div class="container">
         <label for="knimi">Kasutajanimi:</label>

@@ -5,24 +5,13 @@ session_start();
     header("Location: registr.php");
     exit();
 }*/
-global $yhendus;
-$dm=0;
-$user=$_SESSION[unimi];
-$kask = $yhendus->prepare("SELECT id, unimi,onadmin FROM uuedkasutajad WHERE unimi=?");
-$kask->bind_param("s",  $user);
-$kask->bind_result($id, $log, $onadmin);
-$kask->execute();
-if($onadmin===1){
-    $dm==$onadmin;
-    $yhendus->close();
-    exit();
-}
 
 if(isSet($_REQUEST["makonnalisamine"])){
     if(!empty(trim($_REQUEST["uuemaakonnainimi"])) && !empty(trim($_REQUEST["uuemaakonnakeskus"]))) {
-        lisaMakkona($_REQUEST["uuemaakonnainimi"],$_REQUEST["uuemaakonnakeskus"]);
+        lisaMakkona($_REQUEST["uuemaakonnainimi"], $_REQUEST["uuemaakonnakeskus"]);
         header("Location: haldusMT.php");
         exit();
+
     }
 }
 if(isSet($_REQUEST["temperatuurlisamine"])){
@@ -95,7 +84,9 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
         </dl>
         <input type="submit" name="temperatuurlisamine" value="Lisa temperatuur" />
     </div>
-    <div class="column">
+
+        <?php if (isset($_SESSION['unimi'])){?>
+        <div class="column">
         <h2>Makonnanimi lisamine</h2>
         <dl>
             <dt>Maakonnanimi</dt>
@@ -104,7 +95,9 @@ $MTid=kysiTemperatuurAndmed($sorttulp,$otsisona);
             <dd><input type="text" name="uuemaakonnakeskus"/></dd>
             <input type="submit" name="makonnalisamine" value="Lisa makonnanimi" />
         </dl>
-    </div>
+        </div>
+        <?php }?>
+
 </form>
 <div class="column">
     <form action="haldusMT.php">
