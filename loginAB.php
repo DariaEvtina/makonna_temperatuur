@@ -29,26 +29,33 @@ if(isset($_REQUEST['knimi']) && isset($_REQUEST['pasw'])){
     }
 
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="et">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-<h1>Login vorm</h1>
-    <form action="" method="post">
+<button onclick="document.getElementById('id01').style.display='block'">ava</button>
+<div id="id01" class="modal">
+    <span onclick="window.location.href='haldusMT.php'" class="close" title="logi vorm">×</span>
+    <h1 class="modal-header">Login vorm</h1>
+    <form action="loginAB.php" class="modal-content">
+        <div class="container">
         <label for="knimi">Kasutajanimi:</label>
-        <input type="text" placeholder="Sissetaja kasutajanimi" id="knimi" name="knimi" required>
-        <br>
+        <input type="text" placeholder="Sissetaja kasutajanimi" id="knimi" name="knimi" >
         <label for="pasw">Parool:</label>
-        <input type="password" placeholder="Sissetaja parool" id="pasw" name="pasw" required>
-        <input type="submit" value="Logi sisse" name="Logi kasutaja"> <a href="registr.php">Või loo uus kasutaja</a>
+        <input type="password" placeholder="Sissetaja parool" id="pasw" name="pasw" >
+        <div class="clearfix">
+        <!--<input type="submit" value="Logi sisse" name="Logi kasutaja" class="cancelbtn">-->
+        <button type="submit" name="Logi kasutaja" class="deletebtn">Logi sisse</button>
+        <button type="button" onclick="window.location.href='haldusMT.php'" class="cancelbtn">Loobu</button>
+        </div>
+        </div>
     </form>
+</div>
+<script src="modal.js"></script>
 </body>
 </html>

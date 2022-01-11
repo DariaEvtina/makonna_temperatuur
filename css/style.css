@@ -64,16 +64,16 @@ dt::after {
 .input[type=button], input[type=submit], input[type=reset] {
     background: #b7c3ce;
     color:#fff;
-    border:1pxsolid#eee;
+    border:1px solid #eee;
     border-radius:20px;
-    box-shadow:5px5px5px#eee;
+    box-shadow:5px 5px 5px #eee;
     text-shadow:none;
 }
 .input[type=button], input[type=submit], input[type=reset] {
     background: #768c9b;
-    color:#fff;
-    border:1pxsolid#eee;
-    border-radius:20px;
-    box-shadow:5px5px5px#eee;
-    text-shadow:none;
+    color: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
 }

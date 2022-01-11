@@ -54,25 +54,38 @@ $error=$_SESSION["error"] ?? "";
 <html lang="et">
 <head>
     <title>Registreerimis Vorm</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="css/login.css" type="text/css">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 </head>
 <body>
-<div class="header">
+<button onclick="document.getElementById('id02').style.display='block'">ava</button>
+<div id="id02" class="modal">
+<div class="modal-header">
     <h1>Uue kasutamine registreerimine</h1>
 </div>
-<form action="registr.php" method="post">
-    <label for="knimi">Kasutajanimi:</label>
-    <input type="text" placeholder="Sissetaja kasutajanimi" id="knimi" name="knimi" required>    <strong><?=$error?></strong>
-    <br>
-    <label for="pasw">Parool:</label>
-    <input type="password" placeholder="Sissetaja parool" id="pasw" name="pasw" required>
-    <br>
-    <label for="adm">Kas teha admin?</label>
-    <input type="checkbox" id="adm" name="adm" value="1">
-    <br>
-    <input type="submit" value="Loo kasutaja" name="uue kasutaja"> <a href="loginAB.php">Või logi sisse</a>
+<form action="registr.php" class="modal-content">
+    <div class="container">
+        <table>
+            <tr>
+                <td><label for="knimi">Kasutajanimi:</label></td>
+                <td><input type="text" placeholder="Sissetaja kasutajanimi" id="knimi" name="knimi" required>    <strong><?=$error?></strong></td>
+            </tr>
+            <tr>
+                <td><label for="pasw">Parool:</label></td>
+                <td><input type="password" placeholder="Sissetaja parool" id="pasw" name="pasw" required></td>
+            </tr>
+            <tr>
+                <td><label for="adm">Kas teha admin?</label></td>
+                <td><input type="checkbox" id="adm" name="adm" value="1"></td>
+            </tr>
+        </table>
+        <div class="clearfix">
+            <button type="submit" name="Logi kasutaja" class="deletebtn">Logi sisse</button>
+            <button type="button" onclick="window.location.href='haldusMT.php'" class="cancelbtn">Loobu</button>
+        </div>
+    </div>
 
 </form>
+</div>
 </body>
 </html>
